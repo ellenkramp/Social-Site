@@ -1,6 +1,32 @@
 import React from 'react';
 import moment from 'moment';
 
+
+class List extends React.Component {
+    constructor(props) {
+        super(props)
+        this.setState = {users: []};
+
+    }
+    userData = () => {
+
+        fetch("https://jsonplaceholder.typicode.com/posts")
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(body) {
+                console.log(body);
+                JSON.parse(body);
+            });
+            this.state.users = body;
+            console.log(this.state);
+            
+        }
+        
+    
+}
+
+
 export const supList = [
     {
         key: "asdf",

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import Sup from './Sup.js';
 import './App.css';
 import Home from './Home.js';
