@@ -1,66 +1,66 @@
 import React from 'react';
 import moment from 'moment';
+import sort from 'lodash/sortBy';
+import { createStore } from 'redux';
+import { Provider, connect } from 'react-redux';
+import { reducer } from './Reducer';
+
+const store = createStore(
+    reducer, /* preloadedState, */
+ +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+
+let action = {
+    type: 'ADD_SUP',
+};
 
 
-class List extends React.Component {
+
+export class List extends React.Component {
     constructor(props) {
         super(props)
-        this.setState = {users: []};
+        this.state = {
+            users: [],
+            sortBy: ""
+        };
+    }
+
+    fetchData = () => {
+        fetch("https://my.api.mockaroo.com/sup_app.json?key=e1133e10")
+        .then(response => response.json())
+        .then(body => this.setState({users: body}))
+        }
+
+    componentDidMount() {
+        this.fetchData();
 
     }
-    userData = () => {
-
-        fetch("https://jsonplaceholder.typicode.com/posts")
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(body) {
-                console.log(body);
-                JSON.parse(body);
-            });
-            this.state.users = body;
-            console.log(this.state);
-            
+    componentDidUpdate(prevProps) {
+        let prevUserId = prevProps.match.params.username;
+        let currUserId = this.props.match.params.userId;
+        if (prevUserId !== currUserId) {
+        this.fetchData();
         }
+    }
+    render() {    
+        return <div>{this.state.users.map((thing) => 
+            <div class="profiles">
+                <img class="prof" alt="user-pic" src={thing.pic}></img>
+                <h3>{thing.first}</h3>
+                <h2>{thing.title}</h2>
+                <li><b>{thing.body}</b></li>
+                <p>{moment(Date()).fromNow()}</p>
+            </div>
+        )}
         
-    
+            <select 
+                value={this.state.sortBy}
+                onChange={event => this.setState( { sortBy: event.target.value })}>
+                <option value="title">By User</option>
+                <option value="body">By Title</option>
+            </select>
+        </div>
+    }
 }
 
-
-export const supList = [
-    {
-        key: "asdf",
-        author: "Ellen",
-        text: "Went to the store",
-        time: new Date()
-    },
-    {
-        key: "fdsa",
-        author: "Tony",
-        text: "posted a thing",
-        time: new Date()
-    },
-    {
-        key: "jklp",
-        author: "Emily",
-        text: "dinner time",
-        time: new Date()
-    },
-    {
-        key: "plkj",
-        author: "Billy",
-        text: "thanks!",
-        time: new Date()
-    }
-];
-
-let Sup = () =>
-    supList.map((thing) => 
-        <div>
-            <h2>{thing.text}</h2>
-            <li><b>{thing.author}</b></li>
-            <p>{moment(thing.time).fromNow()}</p>
-        </div>
-        )
-
-export default Sup;
+export default List;

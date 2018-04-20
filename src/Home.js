@@ -1,11 +1,9 @@
 import React from 'react';
 import './index.css';
-import {
-    Link
-  } from 'react-router-dom';
-import {supList} from './Sup.js';
+import { Link }  from 'react-router-dom';
+import List from './Sup.js';
 
-let currentUser = supList[0].author;
+let currentUser = "Ellen";
 
 let Greeting = () =>
   <div>
