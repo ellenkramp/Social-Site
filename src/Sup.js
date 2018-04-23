@@ -9,10 +9,16 @@ const store = createStore(
     reducer, /* preloadedState, */
  +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
+let ADD_SUP = 'ADD_SUP';
 
 let action = {
-    type: 'ADD_SUP',
+    type: ADD_SUP,
 };
+
+// switch(action.type) {
+//     case ADD_SUP:
+//     return console.log("sup added");
+// }
 
 
 
