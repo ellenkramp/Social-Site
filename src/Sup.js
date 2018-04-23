@@ -3,24 +3,17 @@ import moment from 'moment';
 import sort from 'lodash/sortBy';
 import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
-import { reducer } from './Reducer';
+import { reducer, ADD_SUP } from './Reducer';
+
 
 const store = createStore(
     reducer, /* preloadedState, */
- +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
-let ADD_SUP = 'ADD_SUP';
 
 let action = {
     type: ADD_SUP,
 };
-
-// switch(action.type) {
-//     case ADD_SUP:
-//     return console.log("sup added");
-// }
-
-
 
 export class List extends React.Component {
     constructor(props) {

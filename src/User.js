@@ -7,7 +7,7 @@ import {reducer} from './Reducer.js';
 
 const store = createStore(
     reducer, /* preloadedState, */
- +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
 
 let thisUser = () => {
@@ -23,9 +23,15 @@ let thisUser = () => {
 
 let userInfoArray = thisUser();
 
-let addSup = (thingToAdd) => {
-    console.log("this works");
-    store.dispatch({type: 'CREATE_SUP'});
+
+let addSup = () => {
+    console.log("working");
+    store.dispatch(
+        {type: 'ADD_SUP',
+        body: {
+        title: "hello",
+        content: "hello world"
+    }});
 
 }
 
@@ -46,7 +52,8 @@ const User = () =>
         Title:<input label="title" name="title" type="text" /><br />
         Content:<textarea label="your sup" name="body" rows="10" cols="30" /><br />
         
-        <button onClick={addSup}>add your sup</button>
+        <button onClick={(event)=>{event.preventDefault()
+        addSup()}}>add your sup</button>
     </form>
   </div>
 
